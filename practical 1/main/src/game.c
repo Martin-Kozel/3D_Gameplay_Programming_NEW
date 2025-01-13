@@ -40,17 +40,45 @@ void initialize(Game *game)
     {
         // Front face of cube (Blue)
         glColor3f(0.0f, 0.0f, 1.0f);     // Set color to blue
-        glVertex3f(1.0f, 1.0f, -5.0f);   // Top-right vertex
-        glVertex3f(-1.0f, 1.0f, -5.0f);  // Top-left vertex
-        glVertex3f(-1.0f, -1.0f, -5.0f); // Bottom-left vertex
-        glVertex3f(1.0f, -1.0f, -5.0f);  // Bottom-right vertex
+        glVertex3f(1.0f, 1.0f, -5.0f);   // Top-right vertex V1
+        glVertex3f(-1.0f, 1.0f, -5.0f);  // Top-left vertex V0
+        glVertex3f(-1.0f, -1.0f, -5.0f); // Bottom-left vertex V3
+        glVertex3f(1.0f, -1.0f, -5.0f);  // Bottom-right vertex V2
 
         // Back face of cube (Green)
-        glColor3f(0.0f, 1.0f, 0.0f);      // Set color to green
-        glVertex3f(1.0f, 1.0f, -15.0f);   // Top-right vertex
-        glVertex3f(-1.0f, 1.0f, -15.0f);  // Top-left vertex
-        glVertex3f(-1.0f, -1.0f, -15.0f); // Bottom-left vertex
-        glVertex3f(1.0f, -1.0f, -15.0f);  // Bottom-right vertex
+        glColor3f(0.0f, 1.0f, 0.0f);      // Set color to green 
+        glVertex3f(1.0f, 1.0f, -15.0f);   // Top-right vertex V5
+        glVertex3f(-1.0f, 1.0f, -15.0f);  // Top-left vertex V4
+        glVertex3f(-1.0f, -1.0f, -15.0f); // Bottom-left vertex V7
+        glVertex3f(1.0f, -1.0f, -15.0f);  // Bottom-right vertex V6
+
+        // Right side of cube (Pink)
+        glColor3f(1.0f, 0.0f, 1.0f);     // Set color to blue
+        glVertex3f(1.0f, 1.0f, -15.0f);   // Top-right vertex v5
+        glVertex3f(1.0f, 1.0f, -5.0f);   // Top-left vertex V1
+        glVertex3f(1.0f, -1.0f, -5.0f);  // Bottom-left vertex V2
+        glVertex3f(1.0f, -1.0f, -15.0f);  // Bottom-right vertex v6
+
+        // Left side of cube (White)
+        glColor3f(1.0f, 1.0f, 1.0f);     // Set color to blue
+        glVertex3f(-1.0f, 1.0f, -5.0f);  // Top-right vertex V0
+        glVertex3f(-1.0f, 1.0f, -15.0f);  // Top-left vertex v4
+        glVertex3f(-1.0f, -1.0f, -15.0f); // Bottom-left vertex v7
+        glVertex3f(-1.0f, -1.0f, -5.0f);    // Bottom-right vertex V3
+
+         // Bottom side of cube (Yellow)
+        glColor3f(1.0f, 1.0f, -1.0f);     // Set color to blue
+        glVertex3f(1.0f, -1.0f, -5.0f);  // Top Right vertex V2
+        glVertex3f(-1.0f, -1.0f, -5.0f); // Top Left vertex V3
+        glVertex3f(-1.0f, -1.0f, -15.0f); // Bottom-left vertex V7
+        glVertex3f(1.0f, -1.0f, -15.0f);  // Bottom-right vertex v6
+
+         // Top side of cube ()
+        //glColor3f(-1.0f, 0.0f, 1.0f);     // Set color to blue
+        //glVertex3f(1.0f, 1.0f, -15.0f);   // Top-right vertex v5
+        //glVertex3f(-1.0f, 1.0f, -15.0f);  // Top-left vertex v4
+        //glVertex3f(-1.0f, 1.0f, -5.0f);  // Bottom Left vertex V0
+        //glVertex3f(1.0f, 1.0f, -5.0f);   // Bottom right vertex V1
 
         // TODO: Add remaining faces to complete the cube
     }
