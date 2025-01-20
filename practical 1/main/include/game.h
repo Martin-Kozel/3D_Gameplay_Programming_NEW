@@ -21,6 +21,7 @@ typedef struct Game
     double lastTime;     // Time tracking for animation
     float rotationAngle; // Current rotation angle of the cube
     float rotationAngleZ;
+    float scaleFactor;    
 
 } Game;
 

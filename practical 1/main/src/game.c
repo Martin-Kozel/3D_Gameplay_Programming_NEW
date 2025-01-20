@@ -21,6 +21,7 @@ void initialize(Game *game)
     game->isRunning = 1;
     game->rotationAngle = 0.0f; 
     game->rotationAngleZ = 0.0f;
+    game->scaleFactor = 1.0f;   
 
     // Set background color to black (R=0, G=0, B=0, A=0)
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -116,6 +117,17 @@ void handleInput(GLFWwindow *window, Game *game)
         game->rotationAngleZ -= ROTATION_SPEED * deltaTime; // 45 degrees per second
     }
 
+    if (glfwGetKey(window, GLFW_KEY_EQUAL) == GLFW_PRESS)
+    {
+        game->scaleFactor += 0.01f;
+        if (game->scaleFactor > 2.0f) game->scaleFactor = 2.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_MINUS) == GLFW_PRESS)
+    {
+        game->scaleFactor -= 0.01f;
+        if (game->scaleFactor < 0.1f) game->scaleFactor = 0.1f;
+    }
+
     // Keep rotation angle between 0 and 360 degrees
     if (game->rotationAngle > 360.0f)
     {
@@ -146,7 +158,6 @@ void update(Game *game)
     {
         printf("Update : rotationAngle = %.2f\n", game->rotationAngle);
         printf("Update : rotationAngleZ = %.2f\n", game->rotationAngleZ);
-        printf(".");
         lastLogTime = currentTime;
     }
 }
@@ -180,6 +191,8 @@ void draw(Game *game)
     glRotatef(game->rotationAngleZ, 0, 0, 1); // Rotate around Z-axis
 
     glTranslatef(0.0f, 0.0f, -5.0f);         // Push it closer or further
+
+    glScalef(game->scaleFactor, game->scaleFactor, game->scaleFactor);
 
     glCallList(game->index);                // Draw cube using display list
 
