@@ -18,6 +18,8 @@ typedef struct Game
     GLFWwindow *window;  // Pointer to GLFW window
     bool isRunning;      // Game running state flag
     GLuint index;        // Display list index for cube geometry
+    GLuint index2;       
+    GLuint index3;
     double lastTime;     // Time tracking for animation
     float rotationAngle; // Current rotation angle of the cube
 } Game;

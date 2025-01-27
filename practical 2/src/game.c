@@ -39,16 +39,46 @@ void initialize(Game *game)
 	// Initalizes and Compiled to GPU
 	// https://www.opengl.org/sdk/docs/man2/xhtml/glNewList.xml
 	glNewList(game->index, GL_COMPILE);
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_QUADS);
 	{
 		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex3f(0.0, 2.0, -5.0);
-		glVertex3f(-2.0, -2.0, -5.0);
-		glVertex3f(2.0, -2.0, -5.0);
+        // Define the vertices of the quad
+        glVertex3f(-0.2f, -0.5f, 0.0f); // Bottom left
+        glVertex3f(0.7f, -0.5f, 0.0f); // Bottom right
+        glVertex3f(1.2f, 0.2f, 0.0f); // Top right
+        glVertex3f(-0.7f, 0.2f, 0.0f); // Top left
 	}
 
 	glEnd();
 	glEndList();
+
+
+    game->index2 = glGenLists(1);        // Generate one display list
+    glNewList(game->index2, GL_COMPILE);
+    glBegin(GL_QUADS);
+    {
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glVertex3f(-0.05f, -0.5f, 0.0f); // Bottom left
+        glVertex3f(0.05f, -0.5f, 0.0f); // Bottom right
+        glVertex3f(0.05f, 0.5f, 0.0f); // Top right
+        glVertex3f(-0.05f, 0.5f, 0.0f); // Top left
+    }
+    glEnd();
+    glEndList(); // End of display list compilation
+
+
+    game->index3 = glGenLists(1);        // Generate one display list
+    glNewList(game->index3, GL_COMPILE);
+    glBegin(GL_TRIANGLES);
+    {
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glVertex3f(0.125f, 1.67f, -5.0f); // Top vertex 
+        glVertex3f(0.125f, 0.8f, -5.0f); // Bottom-left vertex 
+        glVertex3f(1.0f, 1.2f, -5.0f); // Bottom-right vertex
+        
+    }
+    glEnd();
+    glEndList(); // End of display list compilation
 
     // Initialize timing for animation
     game->lastTime = glfwGetTime();
@@ -125,8 +155,19 @@ void draw(Game *game)
     }
 
     glLoadIdentity();                        // Reset modelview matrix
-    glRotatef(game->rotationAngle, 0, 1, 1); // Apply rotation around Y and Z axis
-    glCallList(game->index);                 // Draw cube using display list
+    glTranslatef(-0.25f, -0.5f, -3.0f);
+    //glRotatef(game->rotationAngle, 0, 0, 1);
+    glCallList(game->index);                    // Draw cube using display list
+    
+    glLoadIdentity();                        // Reset the modelview matrix again for the second object
+    glTranslatef(0.0f, 0.2f, -3.0f); 
+    //glRotatef(game->rotationAngle, 0, 0, 1);// Apply a different translation for the second quad
+    glCallList(game->index2);                // Draw the second quad
+
+    glLoadIdentity();                        // Reset the modelview matrix again for the second object
+    glTranslatef(0.0f, 0.2f, -3.0f); 
+    //glRotatef(game->rotationAngle, 0, 0, 1);
+    glCallList(game->index3);                // Draw the second quad
 
     // Swap front and back buffers to display the rendered frame
     glfwSwapBuffers(game->window);
@@ -183,4 +224,6 @@ void destroy(Game *game)
 {
     printf("Cleaning up\n");
     glDeleteLists(game->index, 1); // Delete the display list
+    glDeleteLists(game->index2, 1); // Delete the display list
+    glDeleteLists(game->index3, 1); // Delete the display list
 }
