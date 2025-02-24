@@ -1,128 +1,156 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#include <stdio.h>
+#include <math.h>
 
-namespace cube
+// define Vector3 structure
+typedef struct {
+    double x, y, z;
+}
+Vector3;
+
+// create a zero vector
+Vector3 createZeroVector()
 {
-    class Vector3
-    {
-        // The class has three variables x, y and z 
-        double x;
-        double y;
-        double z;
+    Vector3 v = { 0.0, 0.0, 0.0 };
+    return v;
+}
 
-        public double X
-        {
-            get { return x; }
-            set { x = value; }
-        }
-        public double Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
-        public double Z
-         {
-             get { return z; }
-             set { z = value; }
-         }
+// Create a vector with specific x, y, z values
+Vector3 createVector(double x1, double y1, double z1)
+{
+    Vector3 v = { x1, y1, z1 };
+    return v;
+}
 
-        // Constructor 1
-        public Vector3()
-        {
-            this.x = 0.0f;
-            this.y = 0.0f;
-            this.z = 0.0f;
-        }
+// Copy another vector
+Vector3 copyVector(Vector3 v)
+{
+    Vector3 newVector = { v.x, v.y, v.z };
+    return newVector;
+}
 
-        // Constructor 2
-        public Vector3(double x1, double y1, double z1)
-        { // To allow other values for X, Y and Z to be declared
-            this.x = x1;
-            this.y = y1;
-            this.z = z1;
-        }
-        // Constructor 3
-        public Vector3(Vector3 V)
-        {  // To allow other values for X, Y and Z to be declared
-            this.x = V.x;
-            this.y = V.y;
-            this.z = V.z;
-        }
+// Calculate the length of the vector
+double vectorLength(Vector3 v)
+{
+    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+}
 
-        public double Length()
-        {  // A method to return the length of the vector
-            return (double)Math.Sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-        }
-        public double LengthSquared()
-        {  // A method to return the length squared of the vector
-            return (this.x * this.x + this.y * this.y + this.z * this.z);
-        }
+// Calculate the squared length of the vector (avoids sqrt)
+double vectorLengthSquared(Vector3 v)
+{
+    return v.x * v.x + v.y * v.y + v.z * v.z;
+}
 
-        public void Normalise()
-        {  // A method to reduce the length of the vector to 1.0 
-            // keeping the direction the same
-            if (this.Length() > 0.0)
-            {  // Check for divide by zero
-                double magnit = this.Length();
-                this.x /= magnit;
-                this.y /= magnit;
-                this.z /= magnit;
-            }
-        }
-
-
-       
-
-        public static Vector3 operator +(Vector3 V1, Vector3 V2)
-        {  // An overloaded operator + to return the sum of 2 vectors
-            return new Vector3(V1.x + V2.x, V1.y + V2.y, V1.z + V2.z);
-        }
-
-        public static Vector3 operator -(Vector3 V1, Vector3 V2)
-        { // An overloaded operator - to return the difference of 2 vectors
-            return new Vector3(V1.x - V2.x, V1.y - V2.y, V1.z - V2.z);
-        }
-
-        public static Vector3 operator -(Vector3 V)
-        {// An overloaded operator - to return the negation of a single vector
-            Vector3 V1 = new Vector3();
-            V1.x = -V.x;
-            V1.y = -V.y;
-            V1.z = -V.z;
-            return V1;
-        }
-
-        public static double operator *(Vector3 V1, Vector3 V2)
-        {// An overloaded operator * to return the scalar product of 2 vectors
-            return (V1.x * V2.x + V1.y * V2.y + V1.z * V2.z);
-        }
-
-        public static Vector3 operator *(double k, Vector3 V1)
-        {// An overloaded operator * to return the product of a scalar by a vector
-            return new Vector3(V1.x * (float)k, V1.y * (float)k, V1.z * (float)k);
-        }
-
-        public static Vector3 operator *(float k, Vector3 V1)
-        {// An overloaded operator * to return the product of a scalar by a vector
-            return new Vector3(V1.x * k, V1.y * k, V1.z * k);
-        }
-
-        public static Vector3 operator *(int k, Vector3 V1)
-        {// An overloaded operator * to return the product of a scalar by a vector
-            return new Vector3(V1.x * k, V1.y * k, V1.z * k);
-        }
-
-        public static Vector3 operator ^(Vector3 V1, Vector3 V2)
-        {// An overloaded operator ^ to return the vector product of 2 vectors
-            return new Vector3(V1.y * V2.z - V1.z * V2.y, V1.z * V2.x - V1.x * V2.z, V1.x * V2.y - V1.y * V2.x);
-        }
-
-        public override string ToString()
-        {
-            return "(" + x.ToString("g3") + "," + y.ToString("g3") + "," + z.ToString("g3") + ")";
-        }
-
+// Normalize the vector (make its length 1)
+void normalizeVector(Vector3* v)
+{
+    double len = vectorLength(*v);
+    if (len > 0.0)
+    {  // Avoid division by zero
+        v->x /= len;
+        v->y /= len;
+        v->z /= len;
     }
+}
+
+// Add two vectors and return the result
+Vector3 vectorAdd(Vector3 v1, Vector3 v2)
+{
+    Vector3 result = { v1.x + v2.x, v1.y + v2.y, v1.z + v2.z };
+    return result;
+}
+
+// Subtract two vectors and return the result
+Vector3 vectorSubtract(Vector3 v1, Vector3 v2)
+{
+    Vector3 result = { v1.x - v2.x, v1.y - v2.y, v1.z - v2.z };
+    return result;
+}
+
+// Negate the vector
+Vector3 vectorNegate(Vector3 v)
+{
+    Vector3 result = { -v.x, -v.y, -v.z };
+    return result;
+}
+
+// Calculate the dot product of two vectors
+double vectorDotProduct(Vector3 v1, Vector3 v2)
+{
+    return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
+
+// Multiply a vector by a scalar (double)
+Vector3 vectorMultiplyScalar(double k, Vector3 v)
+{
+    Vector3 result = { v.x * k, v.y * k, v.z * k };
+    return result;
+}
+
+// Multiply a vector by a scalar (float)
+Vector3 vectorMultiplyScalarFloat(float k, Vector3 v)
+{
+    Vector3 result = { v.x * k, v.y * k, v.z * k };
+    return result;
+}
+
+// Multiply a vector by a scalar (int)
+Vector3 vectorMultiplyScalarInt(int k, Vector3 v)
+{
+    Vector3 result = { v.x * k, v.y * k, v.z * k };
+    return result;
+}
+
+// Calculate the cross product of two vectors
+Vector3 vectorCrossProduct(Vector3 v1, Vector3 v2)
+{
+    Vector3 result = {
+        v1.y * v2.z - v1.z * v2.y,
+        v1.z * v2.x - v1.x * v2.z,
+        v1.x * v2.y - v1.y * v2.x
+    };
+    return result;
+}
+
+// Convert vector to a string (for printing)
+void vectorToString(Vector3 v, char* buffer)
+{
+    snprintf(buffer, 100, "(%.3f, %.3f, %.3f)", v.x, v.y, v.z);
+}
+
+int main()
+{
+    // Create vectors
+    Vector3 v1 = createVector(3.0, 4.0, 0.0);
+    Vector3 v2 = createVector(1.0, 2.0, 3.0);
+
+    // Test Vector Addition
+    Vector3 resultAdd = vectorAdd(v1, v2);
+    char buffer[100];
+    vectorToString(resultAdd, buffer);
+    printf("Vector Addition: %s\n", buffer);
+
+    // Test Vector Subtraction
+    Vector3 resultSub = vectorSubtract(v1, v2);
+    vectorToString(resultSub, buffer);
+    printf("Vector Subtraction: %s\n", buffer);
+
+    // Test Dot Product
+    double dotProduct = vectorDotProduct(v1, v2);
+    printf("Dot Product: %.3f\n", dotProduct);
+
+    // Test Cross Product
+    Vector3 resultCross = vectorCrossProduct(v1, v2);
+    vectorToString(resultCross, buffer);
+    printf("Cross Product: %s\n", buffer);
+
+    // Test Length
+    double length = vectorLength(v1);
+    printf("Length of v1: %.3f\n", length);
+
+    // Normalize v1 and print
+    normalizeVector(&v1);
+    vectorToString(v1, buffer);
+    printf("Normalized v1: %s\n", buffer);
+
+    return 0;
 }
