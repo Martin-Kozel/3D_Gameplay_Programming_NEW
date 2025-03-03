@@ -253,10 +253,9 @@ void draw(Game *game)
     glLoadIdentity();
 
     // Move the model to visible position
-    glTranslatef(0.0f, 0.0f, -4.0f);
+    glTranslatef(0.0f, 0.0f, -5.0f);
 
     // Apply rotations
-    glRotatef(game->rotationX, 1.0f, 0.0f, 0.0f); // Rotate around X axis
     glRotatef(game->rotationY, 0.0f, 1.0f, 0.0f); // Rotate around Y axis
 
     // Enable vertex and color arrays
@@ -264,11 +263,11 @@ void draw(Game *game)
     glEnableClientState(GL_COLOR_ARRAY);
 
     // Set up vertex and color pointers
-    glVertexPointer(3, GL_FLOAT, 0, &vertices);
-    glColorPointer(3, GL_FLOAT, 0, &colors);
+    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
+    glColorPointer(3, GL_FLOAT, 0, cubeColors);
 
-    // Draw the pyramid using indices
-    glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, &indices);
+    // Draw Cube 
+    glDrawArrays(GL_QUADS, 0, 24); // Or GL_TRIANGLES for improved rendering
 
     // Disable vertex and color arrays
     glDisableClientState(GL_COLOR_ARRAY);
