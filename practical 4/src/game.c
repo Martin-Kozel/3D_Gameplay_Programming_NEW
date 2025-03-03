@@ -23,6 +23,41 @@ float vertices[] = {
      0.0f,  1.0f, -4.0f   // Vertex 4: Top point (centered)
 };
 
+// Cube indices for 12 triangles (2 triangles per face)
+GLfloat cubeVertices[] = {
+    // Front face
+    -0.5f, -0.5f,  0.5f,  // Bottom-left
+     0.5f, -0.5f,  0.5f,  // Bottom-right
+     0.5f,  0.5f,  0.5f,  // Top-right
+    -0.5f,  0.5f,  0.5f,  // Top-left
+    // Back face
+    -0.5f, -0.5f, -0.5f,  // Bottom-left
+     0.5f, -0.5f, -0.5f,  // Bottom-right
+     0.5f,  0.5f, -0.5f,  // Top-right
+    -0.5f,  0.5f, -0.5f,  // Top-left
+    // Left face
+    -0.5f, -0.5f, -0.5f,  // Bottom-left
+    -0.5f, -0.5f,  0.5f,  // Bottom-right
+    -0.5f,  0.5f,  0.5f,  // Top-right
+    -0.5f,  0.5f, -0.5f,  // Top-left
+    // Right face
+     0.5f, -0.5f, -0.5f,  // Bottom-left
+     0.5f, -0.5f,  0.5f,  // Bottom-right
+     0.5f,  0.5f,  0.5f,  // Top-right
+     0.5f,  0.5f, -0.5f,  // Top-left
+    // Top face
+    -0.5f,  0.5f, -0.5f,  // Bottom-left
+     0.5f,  0.5f, -0.5f,  // Bottom-right
+     0.5f,  0.5f,  0.5f,  // Top-right
+    -0.5f,  0.5f,  0.5f,  // Top-left
+    // Bottom face
+    -0.5f, -0.5f, -0.5f,  // Bottom-left
+     0.5f, -0.5f, -0.5f,  // Bottom-right
+     0.5f, -0.5f,  0.5f,  // Top-right
+    -0.5f, -0.5f,  0.5f   // Top-left
+};
+
+
 // Define colors for each vertex
 // Format: R, G, B values for each vertex
 float colors[] = {
@@ -32,6 +67,45 @@ float colors[] = {
     0.0f, 0.3f, 0.0f,  // Vertex 3: Dark green
     1.0f, 0.0f, 0.0f   // Vertex 4: Red (apex)
 };
+
+GLfloat cubeColors[] = {
+    // Front face (Red)
+    1.0f, 0.0f, 0.0f, // Red
+    1.0f, 0.0f, 0.0f, // Red
+    1.0f, 0.0f, 0.0f, // Red
+    1.0f, 0.0f, 0.0f, // Red
+
+    // Back face (Green)
+    0.0f, 1.0f, 0.0f, // Green
+    0.0f, 1.0f, 0.0f, // Green
+    0.0f, 1.0f, 0.0f, // Green
+    0.0f, 1.0f, 0.0f, // Green
+
+    // Left face (Blue)
+    0.0f, 0.0f, 1.0f, // Blue
+    0.0f, 0.0f, 1.0f, // Blue
+    0.0f, 0.0f, 1.0f, // Blue
+    0.0f, 0.0f, 1.0f, // Blue
+
+    // Right face (Yellow)
+    1.0f, 1.0f, 0.0f, // Yellow
+    1.0f, 1.0f, 0.0f, // Yellow
+    1.0f, 1.0f, 0.0f, // Yellow
+    1.0f, 1.0f, 0.0f, // Yellow
+
+    // Top face (Magenta)
+    1.0f, 0.0f, 1.0f, // Magenta
+    1.0f, 0.0f, 1.0f, // Magenta
+    1.0f, 0.0f, 1.0f, // Magenta
+    1.0f, 0.0f, 1.0f, // Magenta
+
+    // Bottom face (Cyan)
+    0.0f, 1.0f, 1.0f, // Cyan
+    0.0f, 1.0f, 1.0f, // Cyan
+    0.0f, 1.0f, 1.0f, // Cyan
+    0.0f, 1.0f, 1.0f  // Cyan
+};
+
 
 // Define indices to connect vertices into triangles
 // Format: Groups of 3 indices that define each triangle
@@ -44,7 +118,23 @@ unsigned int indices[] = {
     0, 1, 4,  // Front face
     1, 2, 4,  // Right face
     2, 3, 4,  // Back face
-    3, 0, 4   // Left face
+    3, 0, 4,   // Left face
+
+    // Left face
+    8, 9, 10,
+    8, 10, 11,
+
+    // Right face
+    12, 13, 14,
+    12, 14, 15,
+
+    // Top face
+    16, 17, 18,
+    16, 18, 19,
+
+    // Bottom face
+    20, 21, 22,
+    20, 22, 23
 };
 
 /**
