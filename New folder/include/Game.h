@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include <./include/stb_image.h>
+#include "stb_image.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
